@@ -1,0 +1,3454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20190819 14:15:50.518" generator="Robot 2.8.5 (Python 2.7.12 on linux2)">
+<suite source="/home/alan/PycharmProjects/Get_Inceptor_Info/ManagerApiTest/manager_api_test.robot" id="s1" name="Manager Api Test">
+<kw type="setup" name="resource.Login">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.606" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:50.606" starttime="20190819 14:15:50.606"></status>
+</kw>
+<kw type="kw" name="${post_data} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>userName=${USERNAME}</arg>
+<arg>userPassword=${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.607" level="INFO">${post_data} = {'userName': 'wg_test', 'userPassword': '123'}</msg>
+<status status="PASS" endtime="20190819 14:15:50.607" starttime="20190819 14:15:50.606"></status>
+</kw>
+<kw type="kw" name="${jsondata} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.607" level="INFO">${jsondata} = {"userName": "wg_test", "userPassword": "123"}</msg>
+<status status="PASS" endtime="20190819 14:15:50.607" starttime="20190819 14:15:50.607"></status>
+</kw>
+<kw type="kw" name="RequestsLibrary.Create Session">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>manager</arg>
+<arg>${MANAGER}</arg>
+<arg>headers=${header}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.608" level="INFO">Creating Session using : alias=manager, url=http://172.26.5.32:8180, headers={'Content-Type': u'text/plain; charset=UTF-8'},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg timestamp="20190819 14:15:50.608" level="INFO">Argument types are:
+&lt;type 'bool'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:50.608" starttime="20190819 14:15:50.607"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/users/login</arg>
+<arg>data=${jsondata}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.628" level="INFO">Post Request using : alias=manager, uri=/api/users/login, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:50.628" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:50.628" starttime="20190819 14:15:50.609"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.text}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:50.629" starttime="20190819 14:15:50.628"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.629" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:50.629" starttime="20190819 14:15:50.629"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>LOGIN SUCCESS</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:50.630" starttime="20190819 14:15:50.629"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:50.630" starttime="20190819 14:15:50.605"></status>
+</kw>
+<test id="s1-t1" name="Test_Services">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.631" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:50.631" starttime="20190819 14:15:50.631"></status>
+</kw>
+<kw type="kw" name="${post_data} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>clusterId=${1}</arg>
+<arg>type=${TYPE}</arg>
+<arg>version=${VERSION}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.631" level="INFO">${post_data} = {'type': 'INCEPTOR', 'version': 'transwarp-6.0.2-final', 'clusterId': 1}</msg>
+<status status="PASS" endtime="20190819 14:15:50.631" starttime="20190819 14:15:50.631"></status>
+</kw>
+<kw type="kw" name="${list_post_data} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.632" level="INFO">${list_post_data} = [{'type': 'INCEPTOR', 'version': 'transwarp-6.0.2-final', 'clusterId': 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:50.632" starttime="20190819 14:15:50.632"></status>
+</kw>
+<kw type="kw" name="${jsondata} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${list_post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:50.633" level="INFO">${jsondata} = [{"type": "INCEPTOR", "version": "transwarp-6.0.2-final", "clusterId": 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:50.633" starttime="20190819 14:15:50.632"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services</arg>
+<arg>data=${jsondata}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.722" level="INFO">Post Request using : alias=manager, uri=/api/services, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:54.723" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:54.723" starttime="20190819 14:15:50.633"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.text}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:54.725" starttime="20190819 14:15:54.724"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${201}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.726" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:54.726" starttime="20190819 14:15:54.725"></status>
+</kw>
+<kw type="kw" name="${inceptor_service_id} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.json()[0]['id']}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.728" level="INFO">${inceptor_service_id} = 237</msg>
+<status status="PASS" endtime="20190819 14:15:54.727" starttime="20190819 14:15:54.726"></status>
+</kw>
+<kw type="kw" name="${sid} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.json()[0]['sid']}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.730" level="INFO">${sid} = inceptor3</msg>
+<status status="PASS" endtime="20190819 14:15:54.729" starttime="20190819 14:15:54.728"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>Inceptor_Service_Id:${inceptor_service_id}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:54.731" starttime="20190819 14:15:54.730"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${inceptor_service_id}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.732" level="INFO">${inceptor_service_id} = 237</msg>
+<status status="PASS" endtime="20190819 14:15:54.732" starttime="20190819 14:15:54.731"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${sid}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.733" level="INFO">${sid} = inceptor3</msg>
+<status status="PASS" endtime="20190819 14:15:54.733" starttime="20190819 14:15:54.732"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:15:54.733" critical="yes" starttime="20190819 14:15:50.630"></status>
+</test>
+<test id="s1-t2" name="Test_ServiceRoles">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.736" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:54.736" starttime="20190819 14:15:54.735"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>------Incpotor_Merastore-------</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:54.737" starttime="20190819 14:15:54.736"></status>
+</kw>
+<kw type="kw" name="${post_data_1} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>nodeId</arg>
+<arg>${1}</arg>
+<arg>serviceId</arg>
+<arg>${inceptor_service_id}</arg>
+<arg>roleType</arg>
+<arg>${RoleType1}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.737" level="INFO">${post_data_1} = {u'roleType': 'INCEPTOR_METASTORE', u'serviceId': 237, u'nodeId': 1}</msg>
+<status status="PASS" endtime="20190819 14:15:54.737" starttime="20190819 14:15:54.737"></status>
+</kw>
+<kw type="kw" name="${list_post_data_1} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${post_data_1}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.738" level="INFO">${list_post_data_1} = [{u'roleType': 'INCEPTOR_METASTORE', u'serviceId': 237, u'nodeId': 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:54.738" starttime="20190819 14:15:54.738"></status>
+</kw>
+<kw type="kw" name="${jsondata_1} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${list_post_data_1}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.738" level="INFO">${jsondata_1} = [{"roleType": "INCEPTOR_METASTORE", "serviceId": 237, "nodeId": 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:54.738" starttime="20190819 14:15:54.738"></status>
+</kw>
+<kw type="kw" name="${resp_1} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/serviceRoles</arg>
+<arg>${jsondata_1}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.929" level="INFO">Post Request using : alias=manager, uri=/api/serviceRoles, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:54.930" level="INFO">${resp_1} = &lt;Response [201]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:54.930" starttime="20190819 14:15:54.739"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp_1.text}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:54.931" starttime="20190819 14:15:54.930"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp_1.status_code}</arg>
+<arg>${201}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.932" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:54.932" starttime="20190819 14:15:54.931"></status>
+</kw>
+<kw type="kw" name="${post_data_2} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>nodeId</arg>
+<arg>${3}</arg>
+<arg>serviceId</arg>
+<arg>${inceptor_service_id}</arg>
+<arg>roleType</arg>
+<arg>${RoleType1}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.934" level="INFO">${post_data_2} = {u'roleType': 'INCEPTOR_METASTORE', u'serviceId': 237, u'nodeId': 3}</msg>
+<status status="PASS" endtime="20190819 14:15:54.934" starttime="20190819 14:15:54.933"></status>
+</kw>
+<kw type="kw" name="${list_post_data_2} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${post_data_2}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.936" level="INFO">${list_post_data_2} = [{u'roleType': 'INCEPTOR_METASTORE', u'serviceId': 237, u'nodeId': 3}]</msg>
+<status status="PASS" endtime="20190819 14:15:54.935" starttime="20190819 14:15:54.934"></status>
+</kw>
+<kw type="kw" name="${jsondata_2} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${list_post_data_2}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:54.937" level="INFO">${jsondata_2} = [{"roleType": "INCEPTOR_METASTORE", "serviceId": 237, "nodeId": 3}]</msg>
+<status status="PASS" endtime="20190819 14:15:54.937" starttime="20190819 14:15:54.936"></status>
+</kw>
+<kw type="kw" name="${resp_2} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/serviceRoles</arg>
+<arg>${jsondata_2}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.141" level="INFO">Post Request using : alias=manager, uri=/api/serviceRoles, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:55.143" level="INFO">${resp_2} = &lt;Response [201]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.142" starttime="20190819 14:15:54.938"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp_2.status_code}</arg>
+<arg>${201}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.144" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.144" starttime="20190819 14:15:55.143"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>Inceptor_metastore Pass</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.145" starttime="20190819 14:15:55.144"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>------Incpotor_Server-------</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.146" starttime="20190819 14:15:55.146"></status>
+</kw>
+<kw type="kw" name="${post_data_3} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>nodeId</arg>
+<arg>${1}</arg>
+<arg>serviceId</arg>
+<arg>${inceptor_service_id}</arg>
+<arg>roleType</arg>
+<arg>${RoleType2}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.147" level="INFO">${post_data_3} = {u'roleType': 'INCEPTOR_SERVER', u'serviceId': 237, u'nodeId': 1}</msg>
+<status status="PASS" endtime="20190819 14:15:55.147" starttime="20190819 14:15:55.147"></status>
+</kw>
+<kw type="kw" name="${list_post_data_3} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${post_data_3}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.148" level="INFO">${list_post_data_3} = [{u'roleType': 'INCEPTOR_SERVER', u'serviceId': 237, u'nodeId': 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:55.148" starttime="20190819 14:15:55.148"></status>
+</kw>
+<kw type="kw" name="${jsondata_3} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${list_post_data_3}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.149" level="INFO">${jsondata_3} = [{"roleType": "INCEPTOR_SERVER", "serviceId": 237, "nodeId": 1}]</msg>
+<status status="PASS" endtime="20190819 14:15:55.149" starttime="20190819 14:15:55.149"></status>
+</kw>
+<kw type="kw" name="${resp_3} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/serviceRoles</arg>
+<arg>${jsondata_3}#</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.399" level="INFO">Post Request using : alias=manager, uri=/api/serviceRoles, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:55.400" level="INFO">${resp_3} = &lt;Response [201]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.400" starttime="20190819 14:15:55.149"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp_3.text}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.400" starttime="20190819 14:15:55.400"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp_3.status_code}</arg>
+<arg>${201}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.401" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.401" starttime="20190819 14:15:55.401"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>Inceptor_Server Pass</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.401" starttime="20190819 14:15:55.401"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>SET ROLES SUCCESSFUL</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.402" starttime="20190819 14:15:55.401"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:15:55.402" critical="yes" starttime="20190819 14:15:54.734"></status>
+</test>
+<test id="s1-t3" name="Test_Give_Service_Security">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.403" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:55.403" starttime="20190819 14:15:55.403"></status>
+</kw>
+<kw type="kw" name="${post_data} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>userName</arg>
+<arg>${KAdmin}</arg>
+<arg>password</arg>
+<arg>${123}</arg>
+<arg>pluginEnabled</arg>
+<arg>${true}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.404" level="INFO">${post_data} = {u'userName': 'admin', u'password': 123, u'pluginEnabled': True}</msg>
+<status status="PASS" endtime="20190819 14:15:55.404" starttime="20190819 14:15:55.403"></status>
+</kw>
+<kw type="kw" name="${jsondata} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.405" level="INFO">${jsondata} = {"userName": "admin", "password": 123, "pluginEnabled": true}</msg>
+<status status="PASS" endtime="20190819 14:15:55.404" starttime="20190819 14:15:55.404"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services/${inceptor_service_id}/enableKerberos</arg>
+<arg>${jsondata}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.605" level="INFO">Post Request using : alias=manager, uri=/api/services/237/enableKerberos, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:55.605" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.605" starttime="20190819 14:15:55.405"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.607" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.607" starttime="20190819 14:15:55.606"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>GIVE SECURITY SUCCESSFUL</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.608" starttime="20190819 14:15:55.607"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:15:55.608" critical="yes" starttime="20190819 14:15:55.402"></status>
+</test>
+<test id="s1-t4" name="Get_Config_INFO">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.610" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:55.610" starttime="20190819 14:15:55.609"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Get Request">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services/${inceptor_service_id}/configs/firstWizard</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.663" level="INFO">Get Request using : alias=manager, uri=/api/services/237/configs/firstWizard, headers=None json=None</msg>
+<msg timestamp="20190819 14:15:55.664" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.663" starttime="20190819 14:15:55.610"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.665" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.666" starttime="20190819 14:15:55.664"></status>
+</kw>
+<kw type="kw" name="${r_list} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resp.json()}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.668" level="INFO">${r_list} = [{u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'true', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'values': [], u'value': u'true', u'name': u'hive...</msg>
+<status status="PASS" endtime="20190819 14:15:55.668" starttime="20190819 14:15:55.666"></status>
+</kw>
+<kw type="kw" name="${result} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20190819 14:15:55.670" level="INFO">${result} = []</msg>
+<status status="PASS" endtime="20190819 14:15:55.670" starttime="20190819 14:15:55.669"></status>
+</kw>
+<kw type="for" name="${server_config} IN [ @{r_list} ]">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'true', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'values': [], u'value': u'true', u'name': u'hive....">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'recommendedValue' and value 'true'.</msg>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.673" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.673" starttime="20190819 14:15:55.672"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.674" starttime="20190819 14:15:55.674"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.674" starttime="20190819 14:15:55.671"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'NONE', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'NONE', u'name': u'hive.server2.authe...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'recommendedValue' and value 'NONE'.</msg>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.675" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.675" starttime="20190819 14:15:55.674"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.676" starttime="20190819 14:15:55.675"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.676" starttime="20190819 14:15:55.674"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'hdfs://nameservice1/inceptor3/tmp/hive', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'values': [], u...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'recommendedValue' and value 'hdfs://nameservice1/inceptor3/tmp/hive'.</msg>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.677" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.677" starttime="20190819 14:15:55.676"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.678" starttime="20190819 14:15:55.678"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.678" starttime="20190819 14:15:55.676"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'hdfs://nameservice1/inceptor3/user/hive/warehouse', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'val...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'recommendedValue' and value 'hdfs://nameservice1/inceptor3/user/hive/warehouse'.</msg>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.679" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.679" starttime="20190819 14:15:55.678"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.679" starttime="20190819 14:15:55.679"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.679" starttime="20190819 14:15:55.678"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'/mnt/ramdisk/ngmr', u'hostname...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'/mnt/ramdisk/ngmr', u'hostname': u'node532', u'nodeId': 1, u'value': u'/mnt/ramdisk/ngmr'}, {u'recommendedValue': u'/mnt/ramdisk/ngmr', u'hostname': u'node533', u'nodeId': 2, u'value': u'/mnt/ramdisk/ngmr'}, {u'recommendedValue': u'/mnt/ramdisk/ngmr', u'hostname': u'node534', u'nodeId': 3, u'value': u'/mnt/ramdisk/ngmr'}]'.</msg>
+<msg timestamp="20190819 14:15:55.680" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.680" starttime="20190819 14:15:55.680"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.681" starttime="20190819 14:15:55.681"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.681" starttime="20190819 14:15:55.680"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'/mnt/disk1/hadoop/ngmr/incepto...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.682" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.682" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.683" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.683" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.683" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'/mnt/disk1/hadoop/ngmr/inceptor3', u'hostname': u'node532', u'nodeId': 1, u'value': u'/mnt/disk1/hadoop/ngmr/inceptor3'}, {u'recommendedValue': u'/mnt/disk1/hadoop/ngmr/inceptor3', u'hostname': u'node533', u'nodeId': 2, u'value': u'/mnt/disk1/hadoop/ngmr/inceptor3'}, {u'recommendedValue': u'/mnt/disk1/hadoop/ngmr/inceptor3', u'hostname': u'node534', u'nodeId': 3, u'value': u'/mnt/disk1/hadoop/ngmr/inceptor3'}]'.</msg>
+<msg timestamp="20190819 14:15:55.683" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.683" starttime="20190819 14:15:55.682"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.683" starttime="20190819 14:15:55.683"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.684" starttime="20190819 14:15:55.682"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'4040', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'4040', u'name': u'inceptor.ui.port'}">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'recommendedValue' and value '4040'.</msg>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.684" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.684" starttime="20190819 14:15:55.684"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.685" starttime="20190819 14:15:55.685"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.685" starttime="20190819 14:15:55.684"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'10000', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'values': [], u'value': u'10000', u'name': u'hiv...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'recommendedValue' and value '10000'.</msg>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.686" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.686" starttime="20190819 14:15:55.685"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.687" starttime="20190819 14:15:55.686"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.687" starttime="20190819 14:15:55.685"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'9083', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'9083', u'name': u'hive.metastore.por...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'recommendedValue' and value '9083'.</msg>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.688" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.688" starttime="20190819 14:15:55.687"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.689" starttime="20190819 14:15:55.689"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.689" starttime="20190819 14:15:55.687"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'0.5', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'0.5', u'name': u'ngmr.cache.size'}">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'recommendedValue' and value '0.5'.</msg>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.690" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.690" starttime="20190819 14:15:55.689"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.691" starttime="20190819 14:15:55.690"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.691" starttime="20190819 14:15:55.689"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'0.5', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'0.5', u'name': u'ngmr.fastdisk.size'}">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.691" level="INFO">Removed item with key 'recommendedValue' and value '0.5'.</msg>
+<msg timestamp="20190819 14:15:55.691" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.692" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.692" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.692" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.692" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.692" starttime="20190819 14:15:55.691"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.692" starttime="20190819 14:15:55.692"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.692" starttime="20190819 14:15:55.691"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'inceptoruser', u'visibility': u'READ_WRITE', u'configFile': u'hive-site.xml', u'values': [], u'value': u'inceptoruser', ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'recommendedValue' and value 'inceptoruser'.</msg>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.693" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.693" starttime="20190819 14:15:55.693"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.694" starttime="20190819 14:15:55.693"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.694" starttime="20190819 14:15:55.692"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'password', u'visibility': u'PASSWORD', u'configFile': u'hive-site.xml', u'values': [], u'value': u'password', u'name': u...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.694" level="INFO">Removed item with key 'recommendedValue' and value 'password'.</msg>
+<msg timestamp="20190819 14:15:55.694" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.694" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.694" level="INFO">Removed item with key 'configFile' and value 'hive-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.694" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.695" level="INFO">Removed item with key 'visibility' and value 'PASSWORD'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.695" starttime="20190819 14:15:55.694"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.695" starttime="20190819 14:15:55.695"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.695" starttime="20190819 14:15:55.694"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'4096', u'hostname': u'node532'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'4096', u'hostname': u'node532', u'nodeId': 1, u'value': u'4096'}, {u'recommendedValue': u'4096', u'hostname': u'node534', u'nodeId': 3, u'value': u'4096'}]'.</msg>
+<msg timestamp="20190819 14:15:55.696" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.696" starttime="20190819 14:15:55.695"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.696" starttime="20190819 14:15:55.696"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.696" starttime="20190819 14:15:55.695"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'8192', u'hostname': u'node532'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'8192', u'hostname': u'node532', u'nodeId': 1, u'value': u'8192'}, {u'recommendedValue': u'8192', u'hostname': u'node533', u'nodeId': 2, u'value': u'8192'}]'.</msg>
+<msg timestamp="20190819 14:15:55.697" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.697" starttime="20190819 14:15:55.697"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.698" starttime="20190819 14:15:55.698"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.698" starttime="20190819 14:15:55.696"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'  15628', u'hostname': u'node5...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'  15628', u'hostname': u'node532', u'nodeId': 1, u'value': u'  15628'}, {u'recommendedValue': u'  15628', u'hostname': u'node533', u'nodeId': 2, u'value': u'  15628'}, {u'recommendedValue': u'  15628', u'hostname': u'node534', u'nodeId': 3, u'value': u'  15628'}]'.</msg>
+<msg timestamp="20190819 14:15:55.699" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.699" starttime="20190819 14:15:55.698"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.700" starttime="20190819 14:15:55.700"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.700" starttime="20190819 14:15:55.698"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [{u'recommendedValue': u'  10', u'hostname': u'node532'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.701" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.701" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.701" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.701" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.701" level="INFO">Removed item with key 'values' and value '[{u'recommendedValue': u'  10', u'hostname': u'node532', u'nodeId': 1, u'value': u'  10'}, {u'recommendedValue': u'  10', u'hostname': u'node533', u'nodeId': 2, u'value': u'  10'}, {u'recommendedValue': u'  10', u'hostname': u'node534', u'nodeId': 3, u'value': u'  10'}]'.</msg>
+<msg timestamp="20190819 14:15:55.702" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.702" starttime="20190819 14:15:55.701"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.702" starttime="20190819 14:15:55.702"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.702" starttime="20190819 14:15:55.701"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'server.container.limit...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.703" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.703" starttime="20190819 14:15:55.702"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.704" starttime="20190819 14:15:55.703"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.704" starttime="20190819 14:15:55.702"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'server.container.limit...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.704" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.704" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.704" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.704" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.705" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.705" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.705" starttime="20190819 14:15:55.704"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.705" starttime="20190819 14:15:55.705"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.705" starttime="20190819 14:15:55.704"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'server.container.reque...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.706" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.706" starttime="20190819 14:15:55.705"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.706" starttime="20190819 14:15:55.706"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.706" starttime="20190819 14:15:55.705"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'server.container.reque...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.707" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.707" starttime="20190819 14:15:55.707"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.708" starttime="20190819 14:15:55.707"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.708" starttime="20190819 14:15:55.706"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'server.memory.ratio'}">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.708" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.709" starttime="20190819 14:15:55.708"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.709" starttime="20190819 14:15:55.709"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.709" starttime="20190819 14:15:55.708"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'metastore.container.li...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.710" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.710" starttime="20190819 14:15:55.709"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.710" starttime="20190819 14:15:55.710"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.710" starttime="20190819 14:15:55.709"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'metastore.container.li...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.711" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.711" starttime="20190819 14:15:55.711"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.712" starttime="20190819 14:15:55.711"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.712" starttime="20190819 14:15:55.710"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'metastore.container.re...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.712" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.713" starttime="20190819 14:15:55.712"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.713" starttime="20190819 14:15:55.713"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.713" starttime="20190819 14:15:55.712"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'metastore.container.re...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.714" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.714" starttime="20190819 14:15:55.713"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.714" starttime="20190819 14:15:55.714"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.714" starttime="20190819 14:15:55.713"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'metastore.memory.ratio...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.715" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.715" starttime="20190819 14:15:55.715"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.716" starttime="20190819 14:15:55.716"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.716" starttime="20190819 14:15:55.715"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'executor.container.lim...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.717" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.717" starttime="20190819 14:15:55.716"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.718" starttime="20190819 14:15:55.717"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.718" starttime="20190819 14:15:55.716"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'executor.container.lim...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.718" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.718" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.718" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.718" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.718" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.719" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.719" starttime="20190819 14:15:55.718"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.719" starttime="20190819 14:15:55.719"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.719" starttime="20190819 14:15:55.718"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'executor.container.req...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.719" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.720" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.720" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.720" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.720" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.720" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.720" starttime="20190819 14:15:55.719"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.720" starttime="20190819 14:15:55.720"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.720" starttime="20190819 14:15:55.719"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'executor.container.req...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.721" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.721" starttime="20190819 14:15:55.721"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.722" starttime="20190819 14:15:55.721"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.722" starttime="20190819 14:15:55.720"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'executor.memory.ratio'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.722" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.722" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.722" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.722" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.722" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.723" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.723" starttime="20190819 14:15:55.722"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.723" starttime="20190819 14:15:55.723"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.723" starttime="20190819 14:15:55.722"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'1', u'name': u'executor.number.eachnode...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'recommendedValue' and value '1'.</msg>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.724" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.724" starttime="20190819 14:15:55.723"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.724" starttime="20190819 14:15:55.724"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.724" starttime="20190819 14:15:55.723"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'node532:3316,node533:3316,node534:3316', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'no...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'recommendedValue' and value 'node532:3316,node533:3316,node534:3316'.</msg>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.725" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.725" starttime="20190819 14:15:55.725"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.726" starttime="20190819 14:15:55.726"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.726" starttime="20190819 14:15:55.724"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'inceptor', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'inceptor', u'name': u'rubik.conn...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.726" level="INFO">Removed item with key 'recommendedValue' and value 'inceptor'.</msg>
+<msg timestamp="20190819 14:15:55.726" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.726" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.727" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.727" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.727" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.727" starttime="20190819 14:15:55.726"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.727" starttime="20190819 14:15:55.727"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.727" starttime="20190819 14:15:55.726"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'123', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'123', u'name': u'rubik.connection.pas...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'recommendedValue' and value '123'.</msg>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.728" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.728" starttime="20190819 14:15:55.727"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.728" starttime="20190819 14:15:55.728"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.728" starttime="20190819 14:15:55.727"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'rubik_rubik1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'rubik_rubik1', u'name': u'ru...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'recommendedValue' and value 'rubik_rubik1'.</msg>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.729" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.729" starttime="20190819 14:15:55.729"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.730" starttime="20190819 14:15:55.730"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.730" starttime="20190819 14:15:55.729"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'9093', u'visibility': u'READ_WRITE', u'configFile': u'profiler-site.xml', u'values': [], u'value': u'9093', u'name': u'i...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.730" level="INFO">Removed item with key 'recommendedValue' and value '9093'.</msg>
+<msg timestamp="20190819 14:15:55.730" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.730" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.730" level="INFO">Removed item with key 'configFile' and value 'profiler-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.731" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.731" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.731" starttime="20190819 14:15:55.730"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.731" starttime="20190819 14:15:55.731"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.731" starttime="20190819 14:15:55.730"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'20', u'visibility': u'READ_WRITE', u'configFile': u'profiler-site.xml', u'values': [], u'value': u'20', u'name': u'profi...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'recommendedValue' and value '20'.</msg>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'configFile' and value 'profiler-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.732" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.732" starttime="20190819 14:15:55.731"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.732" starttime="20190819 14:15:55.732"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.733" starttime="20190819 14:15:55.731"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': None, u'name': u'inceptor.profiler.memory...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.733" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.733" starttime="20190819 14:15:55.733"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.734" starttime="20190819 14:15:55.734"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.734" starttime="20190819 14:15:55.733"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'profiler.container.lim...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.734" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.734" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.734" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.734" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.734" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.735" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.735" starttime="20190819 14:15:55.734"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.735" starttime="20190819 14:15:55.735"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.735" starttime="20190819 14:15:55.734"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'profiler.container.lim...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.736" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.736" starttime="20190819 14:15:55.735"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.736" starttime="20190819 14:15:55.736"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.736" starttime="20190819 14:15:55.735"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'profiler.container.req...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.737" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.737" starttime="20190819 14:15:55.737"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.738" starttime="20190819 14:15:55.737"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.738" starttime="20190819 14:15:55.736"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'profiler.container.req...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.738" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.739" starttime="20190819 14:15:55.738"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.739" starttime="20190819 14:15:55.739"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.739" starttime="20190819 14:15:55.738"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'profiler.memory.ratio'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.739" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.740" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.740" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.740" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.740" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.740" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.740" starttime="20190819 14:15:55.739"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.740" starttime="20190819 14:15:55.740"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.740" starttime="20190819 14:15:55.739"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'9918', u'visibility': u'READ_WRITE', u'configFile': u'compactor-site.xml', u'values': [], u'value': u'9918', u'name': u'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'recommendedValue' and value '9918'.</msg>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'configFile' and value 'compactor-site.xml'.</msg>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.741" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.741" starttime="20190819 14:15:55.741"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.742" starttime="20190819 14:15:55.741"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.742" starttime="20190819 14:15:55.740"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': None, u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': None, u'name': u'inceptor.compactor.memor...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'recommendedValue' and value 'None'.</msg>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.742" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.742" starttime="20190819 14:15:55.742"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.743" starttime="20190819 14:15:55.743"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.743" starttime="20190819 14:15:55.742"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'compactor.container.li...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.743" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.743" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.743" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.744" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.744" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.744" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.744" starttime="20190819 14:15:55.743"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.744" starttime="20190819 14:15:55.744"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.744" starttime="20190819 14:15:55.743"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'compactor.container.li...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.745" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.745" starttime="20190819 14:15:55.745"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.746" starttime="20190819 14:15:55.746"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.746" starttime="20190819 14:15:55.744"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'compactor.container.re...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.746" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.747" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.747" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.747" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.747" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.747" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.747" starttime="20190819 14:15:55.746"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.747" starttime="20190819 14:15:55.747"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.747" starttime="20190819 14:15:55.746"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'compactor.container.re...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.748" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.748" starttime="20190819 14:15:55.747"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.749" starttime="20190819 14:15:55.748"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.749" starttime="20190819 14:15:55.747"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'compactor.memory.ratio...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.749" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.749" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.749" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.750" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.750" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.750" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.750" starttime="20190819 14:15:55.749"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.750" starttime="20190819 14:15:55.750"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.750" starttime="20190819 14:15:55.749"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'25000', u'visibility': u'READ_WRITE', u'configFile': u'ca-application.properties', u'values': [], u'value': u'25000', u'...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'recommendedValue' and value '25000'.</msg>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'configFile' and value 'ca-application.properties'.</msg>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.751" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.751" starttime="20190819 14:15:55.750"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.751" starttime="20190819 14:15:55.751"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.751" starttime="20190819 14:15:55.750"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'http://localhost:18080', u'visibility': u'READ_WRITE', u'configFile': u'ca-application.properties', u'values': [], u'val...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'recommendedValue' and value 'http://localhost:18080'.</msg>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'configFile' and value 'ca-application.properties'.</msg>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.752" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.752" starttime="20190819 14:15:55.752"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.753" starttime="20190819 14:15:55.753"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.753" starttime="20190819 14:15:55.752"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'catalog-agent.containe...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.754" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.754" starttime="20190819 14:15:55.753"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.754" starttime="20190819 14:15:55.754"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.754" starttime="20190819 14:15:55.753"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'catalog-agent.containe...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.755" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.755" starttime="20190819 14:15:55.755"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.755" starttime="20190819 14:15:55.755"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.756" starttime="20190819 14:15:55.754"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'catalog-agent.containe...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.756" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.757" starttime="20190819 14:15:55.756"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.757" starttime="20190819 14:15:55.757"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.757" starttime="20190819 14:15:55.756"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'catalog-agent.containe...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.758" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.758" starttime="20190819 14:15:55.757"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.759" starttime="20190819 14:15:55.758"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.759" starttime="20190819 14:15:55.757"></status>
+</kw>
+<kw type="foritem" name="${server_config} = {u'description': u'', u'isSupportMultiInstances': False, u'recommendedValue': u'-1', u'visibility': u'READ_WRITE', u'configFile': u'', u'values': [], u'value': u'-1', u'name': u'catalog-agent.memory.r...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Collections.Remove From Dictionary">
+<doc>Removes the given `keys` from the `dictionary`.</doc>
+<arguments>
+<arg>${server_config}</arg>
+<arg>recommendedValue</arg>
+<arg>isSupportMultiInstances</arg>
+<arg>description</arg>
+<arg>configFile</arg>
+<arg>values</arg>
+<arg>visibility</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'recommendedValue' and value '-1'.</msg>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'isSupportMultiInstances' and value 'False'.</msg>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'description' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'configFile' and value ''.</msg>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'values' and value '[]'.</msg>
+<msg timestamp="20190819 14:15:55.760" level="INFO">Removed item with key 'visibility' and value 'READ_WRITE'.</msg>
+<status status="PASS" endtime="20190819 14:15:55.760" starttime="20190819 14:15:55.760"></status>
+</kw>
+<kw type="kw" name="Collections.Append To List">
+<doc>Adds `values` to the end of `list`.</doc>
+<arguments>
+<arg>${result}</arg>
+<arg>${server_config}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.761" starttime="20190819 14:15:55.760"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.761" starttime="20190819 14:15:55.759"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:15:55.761" starttime="20190819 14:15:55.670"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.761" starttime="20190819 14:15:55.761"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.762" level="INFO">${result} = [{u'value': u'true', u'name': u'hive.server2.enabled'}, {u'value': u'NONE', u'name': u'hive.server2.authentication'}, {u'value': u'hdfs://nameservice1/inceptor3/tmp/hive', u'name': u'hive.exec.scratch...</msg>
+<status status="PASS" endtime="20190819 14:15:55.762" starttime="20190819 14:15:55.762"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:15:55.762" critical="yes" starttime="20190819 14:15:55.608"></status>
+</test>
+<test id="s1-t5" name="Test_Dispose_Service">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.763" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:55.763" starttime="20190819 14:15:55.763"></status>
+</kw>
+<kw type="kw" name="${post_data} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>name</arg>
+<arg>${sid}</arg>
+<arg>configs</arg>
+<arg>${result}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.764" level="INFO">${post_data} = {u'configs': [{u'value': u'true', u'name': u'hive.server2.enabled'}, {u'value': u'NONE', u'name': u'hive.server2.authentication'}, {u'value': u'hdfs://nameservice1/inceptor3/tmp/hive', u'name': u'hive...</msg>
+<status status="PASS" endtime="20190819 14:15:55.764" starttime="20190819 14:15:55.763"></status>
+</kw>
+<kw type="kw" name="${jsondata} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.765" level="INFO">${jsondata} = {"configs": [{"value": "true", "name": "hive.server2.enabled"}, {"value": "NONE", "name": "hive.server2.authentication"}, {"value": "hdfs://nameservice1/inceptor3/tmp/hive", "name": "hive.exec.scratch...</msg>
+<status status="PASS" endtime="20190819 14:15:55.765" starttime="20190819 14:15:55.764"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${jsondata}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.765" starttime="20190819 14:15:55.765"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Put Request">
+<doc>Send a PUT request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services/${inceptor_service_id}</arg>
+<arg>${jsondata}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.862" level="INFO">Put Request using : alias=manager, uri=/api/services/237, data={"configs": [{"value": "true", "name": "hive.server2.enabled"}, {"value": "NONE", "name": "hive.server2.authentication"}, {"value": "hdfs://nameservice1/inceptor3/tmp/hive", "name": "hive.exec.scratchdir"}, {"value": "hdfs://nameservice1/inceptor3/user/hive/warehouse", "name": "hive.metastore.warehouse.dir"}, {"value": null, "name": "ngmr.fastdisk.dir"}, {"value": null, "name": "ngmr.localdir"}, {"value": "4040", "name": "inceptor.ui.port"}, {"value": "10000", "name": "hive.server2.thrift.port"}, {"value": "9083", "name": "hive.metastore.port"}, {"value": "0.5", "name": "ngmr.cache.size"}, {"value": "0.5", "name": "ngmr.fastdisk.size"}, {"value": "inceptoruser", "name": "javax.jdo.option.ConnectionUserName"}, {"value": "password", "name": "javax.jdo.option.ConnectionPassword"}, {"value": null, "name": "inceptor.metastore.memory"}, {"value": null, "name": "inceptor.server.memory"}, {"value": null, "name": "inceptor.executor.memory"}, {"value": null, "name": "inceptor.executor.cores"}, {"value": "-1", "name": "server.container.limits.memory"}, {"value": "-1", "name": "server.container.limits.cpu"}, {"value": "-1", "name": "server.container.requests.memory"}, {"value": "-1", "name": "server.container.requests.cpu"}, {"value": "-1", "name": "server.memory.ratio"}, {"value": "-1", "name": "metastore.container.limits.memory"}, {"value": "-1", "name": "metastore.container.limits.cpu"}, {"value": "-1", "name": "metastore.container.requests.memory"}, {"value": "-1", "name": "metastore.container.requests.cpu"}, {"value": "-1", "name": "metastore.memory.ratio"}, {"value": "-1", "name": "executor.container.limits.memory"}, {"value": "-1", "name": "executor.container.limits.cpu"}, {"value": "-1", "name": "executor.container.requests.memory"}, {"value": "-1", "name": "executor.container.requests.cpu"}, {"value": "-1", "name": "executor.memory.ratio"}, {"value": "1", "name": "executor.number.eachnode"}, {"value": "node532:3316,node533:3316,node534:3316", "name": "rubik.connection.url"}, {"value": "inceptor", "name": "rubik.connection.username"}, {"value": "123", "name": "rubik.connection.password"}, {"value": "rubik_rubik1", "name": "rubik.connection.database"}, {"value": "9093", "name": "inceptor.profiler.ui.port"}, {"value": "20", "name": "profiler.stale.percent"}, {"value": null, "name": "inceptor.profiler.memory"}, {"value": "-1", "name": "profiler.container.limits.memory"}, {"value": "-1", "name": "profiler.container.limits.cpu"}, {"value": "-1", "name": "profiler.container.requests.memory"}, {"value": "-1", "name": "profiler.container.requests.cpu"}, {"value": "-1", "name": "profiler.memory.ratio"}, {"value": "9918", "name": "inceptor.compactor.ui.port"}, {"value": null, "name": "inceptor.compactor.memory"}, {"value": "-1", "name": "compactor.container.limits.memory"}, {"value": "-1", "name": "compactor.container.limits.cpu"}, {"value": "-1", "name": "compactor.container.requests.memory"}, {"value": "-1", "name": "compactor.container.requests.cpu"}, {"value": "-1", "name": "compactor.memory.ratio"}, {"value": "25000", "name": "catalog-agent.http.port"}, {"value": "http://localhost:18080", "name": "catalog-agent.web.address"}, {"value": "-1", "name": "catalog-agent.container.limits.memory"}, {"value": "-1", "name": "catalog-agent.container.limits.cpu"}, {"value": "-1", "name": "catalog-agent.container.requests.memory"}, {"value": "-1", "name": "catalog-agent.container.requests.cpu"}, {"value": "-1", "name": "catalog-agent.memory.ratio"}], "name": "inceptor3"},                     headers=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:55.863" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.862" starttime="20190819 14:15:55.765"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp.text}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.864" starttime="20190819 14:15:55.863"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.867" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:55.867" starttime="20190819 14:15:55.865"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>DISPOSE SERVICE SUCCESSFUL</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:55.868" starttime="20190819 14:15:55.868"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:15:55.868" critical="yes" starttime="20190819 14:15:55.762"></status>
+</test>
+<test id="s1-t6" name="Test_Deploy_Service">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.870" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:15:55.870" starttime="20190819 14:15:55.869"></status>
+</kw>
+<kw type="kw" name="${post_data} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>${inceptor_service_id}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.870" level="INFO">${post_data} = [237]</msg>
+<status status="PASS" endtime="20190819 14:15:55.870" starttime="20190819 14:15:55.870"></status>
+</kw>
+<kw type="kw" name="${jsondata} = json.Dumps">
+<doc>Serialize ``obj`` to a JSON formatted ``str``.</doc>
+<arguments>
+<arg>${post_data}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:55.871" level="INFO">${jsondata} = [237]</msg>
+<status status="PASS" endtime="20190819 14:15:55.871" starttime="20190819 14:15:55.871"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Post Request">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services/operations/init</arg>
+<arg>${jsondata}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:57.680" level="INFO">Post Request using : alias=manager, uri=/api/services/operations/init, data=&lt;empty&gt;, headers=None, files=None, allow_redirects=True </msg>
+<msg timestamp="20190819 14:15:57.681" level="INFO">${resp} = &lt;Response [202]&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:57.680" starttime="20190819 14:15:55.871"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${202}</arg>
+</arguments>
+<msg timestamp="20190819 14:15:57.683" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:15:57.683" starttime="20190819 14:15:57.682"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>DEPLOY SERVICE SUCCESSFUL</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:15:57.684" starttime="20190819 14:15:57.684"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>300</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.685" level="INFO">Slept 5 minutes</msg>
+<status status="PASS" endtime="20190819 14:20:57.686" starttime="20190819 14:15:57.684"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:20:57.686" critical="yes" starttime="20190819 14:15:55.869"></status>
+</test>
+<test id="s1-t7" name="Test_Get_Service_Info">
+<kw type="kw" name="${header} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type=text/plain; charset=UTF-8</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.690" level="INFO">${header} = {'Content-Type': u'text/plain; charset=UTF-8'}</msg>
+<status status="PASS" endtime="20190819 14:20:57.690" starttime="20190819 14:20:57.689"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Get Request">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>manager</arg>
+<arg>/api/services</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.793" level="INFO">Get Request using : alias=manager, uri=/api/services, headers=None json=None</msg>
+<msg timestamp="20190819 14:20:57.793" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20190819 14:20:57.793" starttime="20190819 14:20:57.691"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${200}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.795" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20190819 14:20:57.795" starttime="20190819 14:20:57.794"></status>
+</kw>
+<kw type="for" name="${dic} IN [ @{resp.json()} ]">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="foritem" name="${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1548058636000, u'healthChecks': [{u'lastCheck': 1566195658992, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TOS_MASTERs...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.801" level="INFO">${name} = TOS</msg>
+<status status="PASS" endtime="20190819 14:20:57.801" starttime="20190819 14:20:57.800"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.801" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.801" level="INFO">${name_1} = TOS</msg>
+<status status="PASS" endtime="20190819 14:20:57.801" starttime="20190819 14:20:57.801"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.802" starttime="20190819 14:20:57.801"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.802" level="INFO">${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1548058636000, u'healthChecks': [{u'lastCheck': 1566195658992, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TOS_MASTERs...</msg>
+<status status="PASS" endtime="20190819 14:20:57.802" starttime="20190819 14:20:57.802"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.802" starttime="20190819 14:20:57.799"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1548058636000, u'healthChecks': [{u'lastCheck': 1566195658626, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'LICENSE_NOD...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.803" level="INFO">${name} = License</msg>
+<status status="PASS" endtime="20190819 14:20:57.803" starttime="20190819 14:20:57.803"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.803" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.803" level="INFO">${name_1} = License</msg>
+<status status="PASS" endtime="20190819 14:20:57.803" starttime="20190819 14:20:57.803"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.804" starttime="20190819 14:20:57.804"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.804" level="INFO">${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1548058636000, u'healthChecks': [{u'lastCheck': 1566195658626, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'LICENSE_NOD...</msg>
+<status status="PASS" endtime="20190819 14:20:57.804" starttime="20190819 14:20:57.804"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.804" starttime="20190819 14:20:57.802"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657846, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TXSQL_SERVERs ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.805" level="INFO">${name} = TxSQL1</msg>
+<status status="PASS" endtime="20190819 14:20:57.805" starttime="20190819 14:20:57.805"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.805" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.805" level="INFO">${name_1} = TxSQL1</msg>
+<status status="PASS" endtime="20190819 14:20:57.805" starttime="20190819 14:20:57.805"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.806" starttime="20190819 14:20:57.805"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.806" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657846, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TXSQL_SERVERs ...</msg>
+<status status="PASS" endtime="20190819 14:20:57.806" starttime="20190819 14:20:57.806"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.806" starttime="20190819 14:20:57.804"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657960, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'ZOOKEEPERs are...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.807" level="INFO">${name} = ZooKeeper1</msg>
+<status status="PASS" endtime="20190819 14:20:57.807" starttime="20190819 14:20:57.807"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.808" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.808" level="INFO">${name_1} = ZooKeeper1</msg>
+<status status="PASS" endtime="20190819 14:20:57.808" starttime="20190819 14:20:57.807"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.808" starttime="20190819 14:20:57.808"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.809" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657960, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'ZOOKEEPERs are...</msg>
+<status status="PASS" endtime="20190819 14:20:57.809" starttime="20190819 14:20:57.809"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.809" starttime="20190819 14:20:57.806"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195642257, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u&quot;HDFS_JOURNALNO...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.810" level="INFO">${name} = HDFS1</msg>
+<status status="PASS" endtime="20190819 14:20:57.810" starttime="20190819 14:20:57.810"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.810" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.810" level="INFO">${name_1} = HDFS1</msg>
+<status status="PASS" endtime="20190819 14:20:57.810" starttime="20190819 14:20:57.810"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.811" starttime="20190819 14:20:57.811"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.811" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195642257, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u"HDFS_JOURNALNO...</msg>
+<status status="PASS" endtime="20190819 14:20:57.811" starttime="20190819 14:20:57.811"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.811" starttime="20190819 14:20:57.809"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657841, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'YARN_RESOURCEM...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.812" level="INFO">${name} = YARN1</msg>
+<status status="PASS" endtime="20190819 14:20:57.812" starttime="20190819 14:20:57.812"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.812" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.812" level="INFO">${name_1} = YARN1</msg>
+<status status="PASS" endtime="20190819 14:20:57.812" starttime="20190819 14:20:57.812"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.813" starttime="20190819 14:20:57.813"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.814" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657841, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'YARN_RESOURCEM...</msg>
+<status status="PASS" endtime="20190819 14:20:57.814" starttime="20190819 14:20:57.813"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.814" starttime="20190819 14:20:57.811"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657740, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'SEARCH_SERVERs in ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.814" level="INFO">${name} = Search1</msg>
+<status status="PASS" endtime="20190819 14:20:57.814" starttime="20190819 14:20:57.814"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.815" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.815" level="INFO">${name_1} = Search1</msg>
+<status status="PASS" endtime="20190819 14:20:57.815" starttime="20190819 14:20:57.815"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.815" starttime="20190819 14:20:57.815"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.816" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657740, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'SEARCH_SERVERs in ...</msg>
+<status status="PASS" endtime="20190819 14:20:57.816" starttime="20190819 14:20:57.815"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.816" starttime="20190819 14:20:57.814"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195643617, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'HYPERBASE_REGI...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.816" level="INFO">${name} = Hyperbase1</msg>
+<status status="PASS" endtime="20190819 14:20:57.816" starttime="20190819 14:20:57.816"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.817" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.817" level="INFO">${name_1} = Hyperbase1</msg>
+<status status="PASS" endtime="20190819 14:20:57.817" starttime="20190819 14:20:57.816"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.817" starttime="20190819 14:20:57.817"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.817" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195643617, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'HYPERBASE_REGI...</msg>
+<status status="PASS" endtime="20190819 14:20:57.818" starttime="20190819 14:20:57.817"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.818" starttime="20190819 14:20:57.816"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657741, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'SHIVA_MASTERs are ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.819" level="INFO">${name} = Shiva1</msg>
+<status status="PASS" endtime="20190819 14:20:57.819" starttime="20190819 14:20:57.818"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.819" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.819" level="INFO">${name_1} = Shiva1</msg>
+<status status="PASS" endtime="20190819 14:20:57.819" starttime="20190819 14:20:57.819"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.819" starttime="20190819 14:20:57.819"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.820" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1552924279000, u'healthChecks': [{u'lastCheck': 1566195657741, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'SHIVA_MASTERs are ...</msg>
+<status status="PASS" endtime="20190819 14:20:57.820" starttime="20190819 14:20:57.820"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.820" starttime="20190819 14:20:57.818"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195658178, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'INCEPTOR_METAS...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.820" level="INFO">${name} = Inceptor1</msg>
+<status status="PASS" endtime="20190819 14:20:57.820" starttime="20190819 14:20:57.820"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.821" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.821" level="INFO">${name_1} = Inceptor1</msg>
+<status status="PASS" endtime="20190819 14:20:57.821" starttime="20190819 14:20:57.821"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.821" starttime="20190819 14:20:57.821"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.822" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195658178, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'INCEPTOR_METAS...</msg>
+<status status="PASS" endtime="20190819 14:20:57.822" starttime="20190819 14:20:57.822"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.822" starttime="20190819 14:20:57.820"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195633989, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'KAFKA_SERVERs ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.823" level="INFO">${name} = Kafka1</msg>
+<status status="PASS" endtime="20190819 14:20:57.823" starttime="20190819 14:20:57.823"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.823" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.823" level="INFO">${name_1} = Kafka1</msg>
+<status status="PASS" endtime="20190819 14:20:57.823" starttime="20190819 14:20:57.823"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.824" starttime="20190819 14:20:57.824"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.824" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195633989, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'KAFKA_SERVERs ...</msg>
+<status status="PASS" endtime="20190819 14:20:57.824" starttime="20190819 14:20:57.824"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.825" starttime="20190819 14:20:57.822"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521856000, u'healthChecks': [{u'lastCheck': 1566195657741, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TDT_SERVERs are al...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.825" level="INFO">${name} = Transporter1</msg>
+<status status="PASS" endtime="20190819 14:20:57.825" starttime="20190819 14:20:57.825"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.826" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.826" level="INFO">${name_1} = Transporter1</msg>
+<status status="PASS" endtime="20190819 14:20:57.826" starttime="20190819 14:20:57.825"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.826" starttime="20190819 14:20:57.826"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.826" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521856000, u'healthChecks': [{u'lastCheck': 1566195657741, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'TDT_SERVERs are al...</msg>
+<status status="PASS" endtime="20190819 14:20:57.827" starttime="20190819 14:20:57.826"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.827" starttime="20190819 14:20:57.825"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521928000, u'healthChecks': [{u'lastCheck': 1566195657917, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'No enough NOTIFICA...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.827" level="INFO">${name} = Notification1</msg>
+<status status="PASS" endtime="20190819 14:20:57.827" starttime="20190819 14:20:57.827"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.828" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.828" level="INFO">${name_1} = Notification1</msg>
+<status status="PASS" endtime="20190819 14:20:57.828" starttime="20190819 14:20:57.827"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.829" starttime="20190819 14:20:57.828"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.829" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521928000, u'healthChecks': [{u'lastCheck': 1566195657917, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'No enough NOTIFICA...</msg>
+<status status="PASS" endtime="20190819 14:20:57.829" starttime="20190819 14:20:57.829"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.829" starttime="20190819 14:20:57.827"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521868000, u'healthChecks': [{u'lastCheck': 1566195658014, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'WORKFLOW_SERVE...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.830" level="INFO">${name} = Workflow1</msg>
+<status status="PASS" endtime="20190819 14:20:57.830" starttime="20190819 14:20:57.829"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.830" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.830" level="INFO">${name_1} = Workflow1</msg>
+<status status="PASS" endtime="20190819 14:20:57.830" starttime="20190819 14:20:57.830"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.831" starttime="20190819 14:20:57.830"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.831" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1563521868000, u'healthChecks': [{u'lastCheck': 1566195658014, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'WORKFLOW_SERVE...</msg>
+<status status="PASS" endtime="20190819 14:20:57.831" starttime="20190819 14:20:57.831"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.831" starttime="20190819 14:20:57.829"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1542354948000, u'healthChecks': [{u'lastCheck': 1566195646813, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'GUARDIAN_SE...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.832" level="INFO">${name} = Guardian</msg>
+<status status="PASS" endtime="20190819 14:20:57.831" starttime="20190819 14:20:57.831"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.832" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.832" level="INFO">${name_1} = Guardian</msg>
+<status status="PASS" endtime="20190819 14:20:57.832" starttime="20190819 14:20:57.832"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.832" starttime="20190819 14:20:57.832"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.833" level="INFO">${dic} = {u'clusterId': None, u'installed': True, u'releaseDate': 1542354948000, u'healthChecks': [{u'lastCheck': 1566195646813, u'type': u'VITAL_SIGN_CHECK', u'result': u'SUCCESSFUL', u'detail': u'GUARDIAN_SE...</msg>
+<status status="PASS" endtime="20190819 14:20:57.833" starttime="20190819 14:20:57.833"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.833" starttime="20190819 14:20:57.831"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1564059229000, u'healthChecks': [{u'lastCheck': 1566195657675, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'CATALOG_PLATFORMs ...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.833" level="INFO">${name} = Catalog1</msg>
+<status status="PASS" endtime="20190819 14:20:57.833" starttime="20190819 14:20:57.833"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.834" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.834" level="INFO">${name_1} = Catalog1</msg>
+<status status="PASS" endtime="20190819 14:20:57.834" starttime="20190819 14:20:57.834"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.834" starttime="20190819 14:20:57.834"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.835" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1564059229000, u'healthChecks': [{u'lastCheck': 1566195657675, u'type': u'DAEMON_CHECK', u'result': u'SUCCESSFUL', u'detail': u'CATALOG_PLATFORMs ...</msg>
+<status status="PASS" endtime="20190819 14:20:57.835" starttime="20190819 14:20:57.835"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.835" starttime="20190819 14:20:57.833"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': False, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657842, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'No enough INCEPTO...">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.836" level="INFO">${name} = Inceptor2</msg>
+<status status="PASS" endtime="20190819 14:20:57.836" starttime="20190819 14:20:57.835"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.836" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.836" level="INFO">${name_1} = Inceptor2</msg>
+<status status="PASS" endtime="20190819 14:20:57.836" starttime="20190819 14:20:57.836"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.837" starttime="20190819 14:20:57.837"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.837" level="INFO">${dic} = {u'clusterId': 1, u'installed': False, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195657842, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'No enough INCEPTO...</msg>
+<status status="PASS" endtime="20190819 14:20:57.837" starttime="20190819 14:20:57.837"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.837" starttime="20190819 14:20:57.835"></status>
+</kw>
+<kw type="foritem" name="${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195640986, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'com.google.common....">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${name} = Collections.Get From Dictionary">
+<doc>Returns a value from the given `dictionary` based on the given `key`.</doc>
+<arguments>
+<arg>${dic}</arg>
+<arg>name</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.838" level="INFO">${name} = inceptor3</msg>
+<status status="PASS" endtime="20190819 14:20:57.838" starttime="20190819 14:20:57.838"></status>
+</kw>
+<kw type="kw" name="${name_1} = BuiltIn.Convert To String">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${name}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.839" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20190819 14:20:57.839" level="INFO">${name_1} = inceptor3</msg>
+<status status="PASS" endtime="20190819 14:20:57.839" starttime="20190819 14:20:57.838"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Run Keyword If">
+<doc>Runs the given keyword with the given arguments, if `condition` is true.</doc>
+<arguments>
+<arg>'${name}'=='inceptor3'</arg>
+<arg>log to console</arg>
+<arg>${dic}</arg>
+</arguments>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<status status="PASS" endtime="20190819 14:20:57.840" starttime="20190819 14:20:57.839"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.840" starttime="20190819 14:20:57.839"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Suite Variable">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${dic}</arg>
+</arguments>
+<msg timestamp="20190819 14:20:57.840" level="INFO">${dic} = {u'clusterId': 1, u'installed': True, u'releaseDate': 1553154285000, u'healthChecks': [{u'lastCheck': 1566195640986, u'type': u'VITAL_SIGN_CHECK', u'result': u'FAILED', u'detail': u'com.google.common....</msg>
+<status status="PASS" endtime="20190819 14:20:57.840" starttime="20190819 14:20:57.840"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.840" starttime="20190819 14:20:57.837"></status>
+</kw>
+<status status="PASS" endtime="20190819 14:20:57.840" starttime="20190819 14:20:57.795"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20190819 14:20:57.840" critical="yes" starttime="20190819 14:20:57.687"></status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="PASS" endtime="20190819 14:20:57.841" starttime="20190819 14:15:50.518"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="7">Critical Tests</stat>
+<stat fail="0" pass="7">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" pass="7" id="s1" name="Manager Api Test">Manager Api Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
