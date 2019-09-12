@@ -1,10 +1,11 @@
 import os
 import unittest
 from interfacetest.common.HTMLTestRunner import HTMLTestRunner
-
+import ReadConfig
 from interfacetest.common.common import logger
 
 #class RunAll:
+
 
 def set_case_list(self):
         fb = open(self.caseListFile)
@@ -14,13 +15,14 @@ def set_case_list(self):
                 self.caseList.append(data.replace("\n", ""))
         fb.close()
 
+
 def set_case_suite(self):
     self.set_case_list()
     test_suite = unittest.TestSuite()
     suite_model = []
 
     for case in self.caseList:
-        case_file = os.path.join(readConfig.proDir, "testCase")
+        case_file = os.path.join(ReadConfig.proDir, "testCase")
         print(case_file)
         case_name = case.split("/")[-1]
         print(case_name+".py")
@@ -34,6 +36,7 @@ def set_case_suite(self):
     else:
         return None
     return test_suite
+
 
 def run(self):
     try:

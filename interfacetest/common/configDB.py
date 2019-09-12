@@ -4,10 +4,13 @@ import sys
 from requests import ConnectionError
 parent_dir_name = os.path.dirname(os.getcwd())
 sys.path.append(parent_dir_name)
-from  ReadConfig import ReadConfig
-from common.Log import MyLog as Log
+from  interfacetest.ReadConfig import ReadConfig
+
+#from common.Log import MyLog as Log
+import interfacetest.common.Mylog as Log
 
 localReadConfig = ReadConfig.ReadConfig()
+
 
 class MyDB:
     global host, username, password, port, database, config

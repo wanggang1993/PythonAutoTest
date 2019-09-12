@@ -1,11 +1,10 @@
 import logging
 from datetime import datetime
 import os
-import sys
-parent_dir_name = os.path.dirname(os.getcwd())
-sys.path.append(parent_dir_name)
-from  ReadConfig import ReadConfig
+import interfacetest.ReadConfig
+from interfacetest.ReadConfig import ReadConfig
 import threading
+
 
 class Log:
     def __init__(self):
@@ -33,6 +32,8 @@ class Log:
         handler.setFormatter(formatter)
         # add handler
         self.logger.addHandler(handler)
+    def get_logger(self):
+        return self.logger
 
 
 class MyLog:
@@ -52,7 +53,3 @@ class MyLog:
 
         return MyLog.log
 
-
-if __name__ == '__main__':
-    parent_dir_name = os.path.dirname(os.getcwd())
-    print parent_dir_name

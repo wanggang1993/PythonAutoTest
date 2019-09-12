@@ -1,18 +1,20 @@
 import os
 from xlrd import open_workbook
 from xml.etree import ElementTree as ElementTree
-from common.Log import MyLog as Log
-import configHttp
+import interfacetest.common.Log as Log
+import ConfigHttp
+import interfacetest.ReadConfig
 
-localConfigHttp = configHttp.ConfigHttp()
+localConfigHttp = ConfigHttp.ConfigHttp()
 log = Log.get_log()
 logger = log.get_logger()
+
 
 # 从excel文件中读取测试用例
 def get_xls(xls_name, sheet_name):
     cls = []
     # get xls file's path
-    xlsPath = os.path.join(proDir, "testFile", xls_name)
+    xlsPath = os.path.join(interfacetest.proDir, "testFile", xls_name)
     # open xls fil
     file = open_workbook(xlsPath)
     # get sheet by name
@@ -24,11 +26,14 @@ def get_xls(xls_name, sheet_name):
             cls.append(sheet.row_values(i))
     return cls
 
+
 # 从xml文件中读取sql语句
 database = {}
+
+
 def set_xml():
     if len(database) == 0:
-        sql_path = os.path.join(proDir, "testFile", "SQL.xml")
+        sql_path = os.path.join(interfacetest.proDir, "testFile", "SQL.xml")
         tree = ElementTree.parse(sql_path)
         for db in tree.findall("database"):
             db_name = db.get("name")
@@ -45,10 +50,12 @@ def set_xml():
                 table[table_name] = sql
             database[db_name] = table
 
+
 def get_xml_dict(database_name, table_name):
     set_xml()
     database_dict = database.get(database_name).get(table_name)
     return database_dict
+
 
 def get_sql(database_name, table_name, sql_id):
     db = get_xml_dict(database_name, table_name)
