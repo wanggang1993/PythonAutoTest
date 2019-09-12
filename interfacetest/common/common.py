@@ -10,7 +10,6 @@ log = Log.get_log()
 logger = log.get_logger()
 
 
-# 从excel文件中读取测试用例
 def get_xls(xls_name, sheet_name):
     cls = []
     # get xls file's path
